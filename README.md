@@ -75,9 +75,15 @@ The servlet uses [c3p0](http://www.mchange.com/projects/c3p0) for SQL connection
 After everything is set up, you can test the basic functionality using a browser.
 Call the following URL:
 
-http://your.server/hrls/ping
+https://your.server/hrls/ping
 
 This should ask for authentication (credentials from the realm.properties file) and return "OK".
 To check whether the actual reverse lookup works, create some Handles on the server and then retrieve all of them with the following call:
 
-http://your.server/hrls/handles?URL=*
+https://your.server/hrls/handles?URL=*
+
+And a curl example would be:
+
+curl -u "<username>:<password>" https://your.server:port/hrls/ping
+
+curl -u "<username>:<password>" https://your.server:port/hrls/handles?URL=*
