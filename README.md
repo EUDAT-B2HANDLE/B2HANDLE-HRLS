@@ -81,3 +81,7 @@ This should ask for authentication (credentials from the realm.properties file) 
 To check whether the actual reverse lookup works, create some Handles on the server and then retrieve all of them with the following call:
 
 http://your.server/hrls/handles?URL=*
+
+To retrieve full Handle records, set the optional "retrieverecords" parameter to true:
+
+https://your.server:port/hrls/handles?URL=*&retrieverecords=true
