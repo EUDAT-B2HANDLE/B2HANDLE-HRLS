@@ -188,7 +188,7 @@ public class HandleReverseLookupResource {
 	 * 
 	 * @param parameters A map of all search fields. Should not contain special parameters such as 'limit' or 'enforcesql'.
 	 * @param limit
-	 *            SQL query limit. May be null.
+	 *            SQL query limit. May be null, but will then be set to 1000 as default. Can never be higher than 10000.
 	 * @param page
 	 *            SQL query offset, skips the given number of results. May be null.
 	 * @param retrieveRecords
@@ -229,7 +229,8 @@ public class HandleReverseLookupResource {
 					tableIndex++;
 				}
 				if (limit != null)
-					sb.append(" limit " + limit);
+					sb.append(" limit " + Math.min(limit, 10000));
+				else sb.append(" limit 1000");
 				if (page != null)
 					sb.append(" offset " + page);
 			}
