@@ -229,7 +229,7 @@ public class HandleReverseLookupResource {
 					tableIndex++;
 				}
 				if (limit != null)
-					sb.append(" limit " + Math.min(limit, 10000));
+					sb.append(" limit " + Math.min(limit, 100000));
 				else sb.append(" limit 1000");
 				if (page != null)
 					sb.append(" offset " + page);
