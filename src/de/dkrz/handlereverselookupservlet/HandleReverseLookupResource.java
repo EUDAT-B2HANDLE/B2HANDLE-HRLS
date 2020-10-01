@@ -401,8 +401,13 @@ public class HandleReverseLookupResource {
 	private void makeSearchSubquery(String prefix, String key, List<String> list, StringBuffer sb,
 			List<String> stringParams, Integer limit, Integer page, boolean retrieveRecords) {
 		if (retrieveRecords) {
-			sb.append(
+			if (prefix != null) {
+				sb.append("select handle, type, data from handles as allvalues inner join ");
+				sb.append(" (select handle as subhandle from handles where handle like '" + prefix + "%' and type=?");
+			} else {
+				sb.append(
 					"select handle, type, data from handles as allvalues inner join (select handle as subhandle from handles where type=?");
+			}
 		} else {
 			if (prefix != null) {
 				sb.append("select handle from handles where handle like '" + prefix + "%'");
