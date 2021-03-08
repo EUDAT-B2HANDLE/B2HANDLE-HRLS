@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>HandleReverseLookupServlet</groupId>
   <artifactId>HandleReverseLookupServlet</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <finalName>reverselookupservlet-${project.version}</finalName>
