@@ -51,13 +51,17 @@ A typical configuration for EUDAT for Handle servers that use SQL storage may be
 ```
 useSql = true
 useSolr = false
-sqlConnectionString = jdbc\:\mysql\://localhost\:3306/database_name?autoReconnect=true
+sqlConnectionString = jdbc\:\mysql\://localhost\:3306/database_name?autoReconnect=true&serverTimezone=Europe/Amsterdam
 sqlUsername = user
 sqlPassword = password
 jdbcDriverClassName = com.mysql.jdbc.Driver
 ```
 
 Note the escaping of colon characters in the the sqlConnectionString.
+Note the setting of the timezone. If this is not set the servlet will not start and complain about
+```
+com.mysql.cj.exceptions.InvalidConnectionAttributeException
+```
 
 By default, the servlet does not log all queries. This can be enabled by including the following in the config file. The query log will be under the location {HANDLE_SVR}/logs/hrls-requests.log. 
 
