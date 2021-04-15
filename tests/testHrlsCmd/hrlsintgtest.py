@@ -558,7 +558,7 @@ class HrlsIntegrationTests(unittest.TestCase):
     def test_search_handle_by_prefix_existing_key_value_5(self):
         """Test that search by ['prefix','URL=http://www.test_hrls_check.com/000001','retrieverecords=true'] returns all records for that handle."""
         search_array=['URL=http://www.test_hrls_check.com/000001','retrieverecords=true']
-        search_result = execute_curl(self.handle_server_url+'/hrls/handles', self.username, self.password, search_array, self.https_verify)
+        search_result = execute_curl(self.handle_server_url+'/hrls/handles/'+self.prefix, self.username, self.password, search_array, self.https_verify)
         self.assertEqual(
             search_result.status_code, 200,
             'search hrls by existing key value returns unexpected status')
