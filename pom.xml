@@ -2,22 +2,23 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>HandleReverseLookupServlet</groupId>
   <artifactId>HandleReverseLookupServlet</artifactId>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <finalName>reverselookupservlet-${project.version}</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>3.8.1</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
-      </plugin>
+</plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.3.1</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -46,14 +47,19 @@
   		<version>2.22.1</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.eclipse.jetty</groupId>
-  		<artifactId>jetty-server</artifactId>
-  		<version>[9.3.24.v20180605,)</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.glassfish.jersey.containers</groupId>
   		<artifactId>jersey-container-servlet</artifactId>
   		<version>2.22.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.glassfish.jersey.media</groupId>
+  		<artifactId>jersey-media-json-jackson</artifactId>
+  		<version>2.22.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.eclipse.jetty</groupId>
+  		<artifactId>jetty-server</artifactId>
+  		<version>9.4.15.v20190215</version>
   	</dependency>
   	<dependency>
   		<groupId>org.apache.logging.log4j</groupId>
@@ -86,11 +92,6 @@
   		<version>8.0.16</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.glassfish.jersey.media</groupId>
-  		<artifactId>jersey-media-json-jackson</artifactId>
-  		<version>2.22.1</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.apache.solr</groupId>
   		<artifactId>solr-solrj</artifactId>
   		<version>5.2.1</version>
@@ -106,4 +107,27 @@
   		<version>4.0.1</version>
   	</dependency>
   </dependencies>
+  <profiles>
+    <profile>
+      <id>linux8</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>linux8</value>
+        </property>
+      </activation>
+      <properties>
+        <maven.compiler.release>8</maven.compiler.release>
+      </properties>
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.10.1</version>
+        </plugin>
+      </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
