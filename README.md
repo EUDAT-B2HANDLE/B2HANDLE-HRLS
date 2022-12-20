@@ -12,6 +12,27 @@ $ mvn war:war
 ```
 The .war file will be under subdirectory "target". 
 
+## How to build on Linux 8 (RedHat 8 flavour systems)
+
+This is a Maven-enabled project. To build a .war file, install [Apache Maven](https://maven.apache.org) and then call:
+```
+$ mvn clean   -Denv=linux8
+$ mvn compile -Denv=linux8
+$ mvn war:war -Denv=linux8
+```
+The .war file will be under subdirectory "target". 
+
+This was tested with the following versions and settings:
+```
+$ mvn --version
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+Apache Maven 3.5.4 (Red Hat 3.5.4-5)
+Maven home: /usr/share/maven
+Java version: 17.0.5, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-17-openjdk-17.0.5.0.8-2.el8_6.x86_64
+Default locale: en_US, platform encoding: UTF8
+OS name: "linux", version: "4.18.0-425.3.1.el8.x86_64", arch: "amd64", family: "unix"
+```
+
 ## How to deploy (using embedded Handle System v8 (or higher) Jetty)
 
 To deploy the servlet .war in the embedded jetty, copy it to your-instance-directory/webapps.
