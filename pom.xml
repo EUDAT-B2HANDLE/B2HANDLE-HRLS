@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>HandleReverseLookupServlet</groupId>
   <artifactId>HandleReverseLookupServlet</artifactId>
-  <version>1.0.11</version>
+  <version>1.0.12</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <finalName>reverselookupservlet-${project.version}</finalName>
@@ -27,7 +27,7 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.0.7.v20131107</version>  <!-- jetty 8.1.15 is used by Handle System 8 (beta) -->
+        <version>9.4.51.v20230217</version>  <!-- jetty 8.1.15 is used by Handle System 8 (beta) -->
         <configuration>
           <webAppSourceDirectory>WebContent</webAppSourceDirectory>
 		  <loginServices>
@@ -89,7 +89,7 @@
   	<dependency>
   		<groupId>mysql</groupId>
   		<artifactId>mysql-connector-java</artifactId>
-  		<version>8.0.16</version>
+  		<version>8.0.28</version>
   	</dependency>
   	<dependency>
   		<groupId>org.apache.solr</groupId>
