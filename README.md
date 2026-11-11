@@ -1,44 +1,49 @@
 # B2HANDLE-HandleReverseLookupServlet
 
-B2HANDLE-HRLS provides a Java servlet that will enable reverse-lookup and searching against a local Handle server installation with SQL storage.
+B2HANDLE-HRLS provides a Java servlet that will enable reverse-lookup and
+searching against a local Handle server installation with SQL storage.
 
 ## How to build
 
-This is a Maven-enabled project. To build a .war file, install [Apache Maven](https://maven.apache.org) and then call:
+This is a gradle-enabled project. It needs java 17 or higher to use gradle.
+To build a .war file call:
 ```
-$ mvn clean
-$ mvn compile
-$ mvn war:war
+$ ./gradlew clean
+$ ./gradlew build
+$ ./gradlew war
 ```
-The .war file will be under subdirectory "target". 
+The resulting .war file will be under subdirectory "build/libs".
 
-## How to build on Linux 8 (RedHat 8 flavour systems)
-
-This is a Maven-enabled project. To build a .war file, install [Apache Maven](https://maven.apache.org) and then call:
-```
-$ mvn clean   -Denv=linux8
-$ mvn compile -Denv=linux8
-$ mvn war:war -Denv=linux8
-```
-The .war file will be under subdirectory "target". 
 
 This was tested with the following versions and settings:
 ```
-$ mvn --version
-Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
-Apache Maven 3.5.4 (Red Hat 3.5.4-5)
-Maven home: /usr/share/maven
-Java version: 17.0.5, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-17-openjdk-17.0.5.0.8-2.el8_6.x86_64
-Default locale: en_US, platform encoding: UTF8
-OS name: "linux", version: "4.18.0-425.3.1.el8.x86_64", arch: "amd64", family: "unix"
+$ ./gradlew --version
+
+------------------------------------------------------------
+Gradle 9.5.1
+------------------------------------------------------------
+
+Build time:    2026-05-12 13:19:42 UTC
+Revision:      fd78213f09782e62ca4957f9cfd3d90c6c3f1767
+
+Kotlin:        2.3.20
+Groovy:        4.0.29
+Ant:           Apache Ant(TM) version 1.10.15 compiled on August 25 2024
+Launcher JVM:  21.0.11 (Red Hat, Inc. 21.0.11+10-LTS)
+Daemon JVM:    /usr/lib/jvm/java-21-openjdk (no Daemon JVM specified, using current Java home)
+OS:            Linux 6.12.0-211.20.1.el10_2.x86_64 amd64
 ```
+It was build on RedHat 10 with java 21 and tested on Java 1.8 and 21.
 
 ## How to deploy (using embedded Handle System v8 (or higher) Jetty)
 
 To deploy the servlet .war in the embedded jetty, copy it to your-instance-directory/webapps.
-The servlet also needs configuration. Most importantly, the servlet requires an environmental variable **HANDLE_SVR** which should point to the Handle server instance's home directory from which the servlet will load its configuration file.
+The servlet also needs configuration. Most importantly, the servlet requires an
+ environmental variable **HANDLE_SVR** which should point to the Handle server
+instance's home directory from which the servlet will load its configuration file.
 
-Please make sure you are using a JDBC4 database connector; if you are using a JDBC3 connector, you will have to reconfigure c3p0 (see below).
+Please make sure you are using a JDBC4 database connector; if you are using a
+JDBC3 connector, you will have to reconfigure c3p0 (see below).
 
 ### Step by step guide for deployment
 
@@ -53,7 +58,8 @@ The path {HANDLE_HOME} is the home directory of the target Handle server, for ex
 
 ### Servlet properties configuration file format
 
-The handlereverselookupservlet.properties file format is as follows. The file consists of two blocks, one for SQL and one for Solr. At least one of either must be present.
+The handlereverselookupservlet.properties file format is as follows. The file
+consists of two blocks, one for SQL and one for Solr. At least one of either must be present.
 
 ```
 useSql = true
@@ -84,15 +90,21 @@ Note the setting of the timezone. If this is not set the servlet will not start 
 com.mysql.cj.exceptions.InvalidConnectionAttributeException
 ```
 
-By default, the servlet does not log all queries. This can be enabled by including the following in the config file. The query log will be under the location {HANDLE_SVR}/logs/hrls-requests.log. 
+By default, the servlet does not log all queries. This can be enabled by
+including the following in the config file. The query log will be under the
+location {HANDLE_SVR}/logs/hrls-requests.log.
 
 ```
 logAllQueries = true
 ``` 
 
-These logs will be rotated daily and no more than 28 logs will be kept. These parameters can be overridden by customizing the log4j2.xml file contained in the war. You can specify a location for your own log4j2.xml file using a java parameter: -Dlog4j.configurationFile=path/to/log4j2.xml
+These logs will be rotated daily and no more than 28 logs will be kept. These
+parameters can be overridden by customizing the log4j2.xml file contained in
+the war. You can specify a location for your own log4j2.xml file using a java
+parameter: -Dlog4j.configurationFile=path/to/log4j2.xml
 
-You can also specify optionally a custom service name for the servlet. This will be used for logging purposes but does not affect interaction with the databases.
+You can also specify optionally a custom service name for the servlet. This will
+ be used for logging purposes but does not affect interaction with the databases.
 
 ```
 serviceName = MyService
@@ -109,7 +121,10 @@ username: password, handle-search
 
 ## Further database connection customization
 
-The servlet uses [c3p0](http://www.mchange.com/projects/c3p0) for SQL connection pooling. C3P0 has quite elaborate configuration options; HRLS sets some default options through its own c3p0.properties file. Please refer to the c3p0 documentation to learn how to override them if required.
+The servlet uses [c3p0](http://www.mchange.com/projects/c3p0) for SQL connection
+pooling. C3P0 has quite elaborate configuration options; HRLS sets some default
+options through its own c3p0.properties file. Please refer to the c3p0
+documentation to learn how to override them if required.
 
 ## Example test calls
 
@@ -119,7 +134,8 @@ Call the following URL:
 https://your.server/hrls/ping
 
 This should ask for authentication (credentials from the realm.properties file) and return "OK".
-To check whether the actual reverse lookup works, create some Handles on the server and then retrieve all of them with the following call:
+To check whether the actual reverse lookup works, create some Handles on the
+server and then retrieve all of them with the following call:
 
 https://your.server/hrls/handles?URL=*
 
@@ -143,9 +159,12 @@ https://your.server:port/hrls/handles?URL=*&retrieverecords=true
 
 **NOTE:** Retrieving records will not decode HS_ADMIN record fields.
 
-**NOTE:** `retrieverecords=true` with a limit of 100000 might give a server error: _HTTP ERROR 500_. The handle logfile shows _java.lang.OutOfMemoryError: GC overhead limit exceeded_. To prevent this increase the memory for the handle server during startup. An example is _-Xmx2G_.
+**NOTE:** `retrieverecords=true` with a limit of 100000 might give a server
+error: _HTTP ERROR 500_. The handle logfile shows `_java.lang.OutOfMemoryError: GC overhead limit exceeded_`.
+ To prevent this increase the memory for the handle server during startup. An example is _-Xmx2G_.
 
-**NOTE:** The maximum of limit is 100000. The default of limit is 1000. By default it will only show 1000 matches when searching.
+**NOTE:** The maximum of limit is 100000. The default of limit is 1000. By
+default it will only show 1000 matches when searching.
 
 
 ## License

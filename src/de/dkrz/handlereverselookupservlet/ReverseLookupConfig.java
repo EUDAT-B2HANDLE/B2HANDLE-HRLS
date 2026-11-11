@@ -3,7 +3,7 @@ package de.dkrz.handlereverselookupservlet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import javax.jws.soap.SOAPBinding.Use;
+import jakarta.jws.soap.SOAPBinding.Use;
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
